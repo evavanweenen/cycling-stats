@@ -22,7 +22,7 @@ df_zones = df.groupby('date').apply(agg_zones, hr_zones=hr_zones, power_zones=po
 df = df.set_index('timestamp')
 
 # calculate power statistics
-df_power = df.groupby('date').apply(agg_power, FTP=FTP
+df_power = df.groupby('date').apply(agg_power, FTP=FTP)
 
 # fill up dates for which we don't have an entry to get exponential weighted mean (ewm)
 dates = df_power.index
