@@ -92,21 +92,23 @@ def training_stress_balance(CTL, ATL):
     # calculate the training stress balance (TSB) (form) from chronic training load (CTL) and acute training load (ATL)
     return CTL - ATL
 
-def agg_power(X:pd.DataFrame, FTP):
+def agg_power(X:pd.DataFrame, FTP, col_hr='heart_rate', col_power='power'):
     """
     Calculate statistics related to power for a training session
     Arguments
-        X   - (pd.DataFrame) time series including power and heart rate
-        FTP - (float) functional threshold power [W]
+        X           - (pd.DataFrame) time series including columns 'power' and 'heart_rate' with the timestamp as index
+        FTP         - (float) functional threshold power [W]
+        col_hr      - (string) name of the heart rate column
+        col_power   - (string) name of the power column
     Returns
-              (pd.Series) power statistics
+                      (pd.Series) power statistics
     """
     T = len(X)
-    NP = normalised_power(X['power'])
+    NP = normalised_power(X[col_power])
     IF = intensity_factor(NP, FTP)
     TSS = training_stress_score(T, IF)
-    VI = variability_index(NP, X['power'])
-    EF = efficiency_factor(NP, X['heart_rate'])
+    VI = variability_index(NP, X[col_power])
+    EF = efficiency_factor(NP, X[col_hr])
 
     return pd.Series({'normalised_power'        : NP,
                       'intensity_factor'        : IF,
@@ -114,16 +116,16 @@ def agg_power(X:pd.DataFrame, FTP):
                       'variability_index'       : VI,
                       'efficiency_factor'       : EF})
 
-def agg_zones(X:pd.DataFrame, hr_zones:list, power_zones:list):
+def agg_zones(X:pd.DataFrame, hr_zones:list, power_zones:list, col_hr='heart_rate', col_power='power'):
     """
     Calculate statistics related to time in zones for a training session
     Arguments
-        X           - (pd.DataFrame) time series including power and heart rate
+        X           - (pd.DataFrame) time series including columns 'power' and 'heart_rate' with the timestamp as index
         hr_zones    - (list) list of boundaries for heart rate zones
         power_zones - (list) list of boundaries for power zones
     Returns
                       (pd.Series) power statistics
     """
-    time_in_hr_zone = {'time_in_hr_zone%s'%(n+1):t for n, t in enumerate(time_in_zone(X['heart_rate'], hr_zones))}
-    time_in_power_zone = {'time_in_power_zone%s'%(n+1):t for n, t in enumerate(time_in_zone(X['power'], power_zones))}
+    time_in_hr_zone = {'time_in_hr_zone%s'%(n+1):t for n, t in enumerate(time_in_zone(X[col_hr], hr_zones))}
+    time_in_power_zone = {'time_in_power_zone%s'%(n+1):t for n, t in enumerate(time_in_zone(X[col_power], power_zones))}
     return pd.Series({**time_in_hr_zone, **time_in_power_zone})
