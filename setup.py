@@ -13,7 +13,7 @@ setup(
     long_description_content_type='text/markdown',
     url='https://github.com/evavanweenen/cycling-stats',
     license='MIT',
-    packages=['cycling-stats'],
+    packages=['cyclingstats'],
     scripts=['bin/run.py'],
     zip_safe=False,
     install_requires=['numpy', 'pandas']
