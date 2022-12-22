@@ -1,4 +1,4 @@
-# cycling-stats - Calculate advanced statistics for cyclists using power and/or heart-rate meters
+# cycling-stats - Calculate advanced cycling statistics from power and/or heart rate data
 
 Calculate statistics such as time spent in individualized heart rate and power zones, normalized power, intensity factor, training stress score, variability index, efficiency factor, chronic training load, acute training load and training stress balance, from heart rate and power meters.
 
@@ -63,5 +63,5 @@ This code is &copy; E. van Weenen, 2022, and it is made available under the MIT 
 
 Over and above the legal restrictions imposed by this license, if you use this software for an academic publication then you are obliged to provide proper attribution. 
 ```
-E. van Weenen. cycling-stats: Calculate advanced statistics for cyclists using power and/or heart rate meters, v0.1 (2022). github.com/evavanweenen/cycling-stats.
+E. van Weenen. cycling-stats: Calculate advanced cycling statistics from power and/or heart rate data, v0.1 (2022). github.com/evavanweenen/cycling-stats.
 ```
